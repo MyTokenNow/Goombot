@@ -81,7 +81,7 @@ client.on("message", message => {
 	if (lastMessages.has(message.author.id)) {
 		const lastMessage = lastMessages.get(message.author.id);
 		const sameContent = message.content === lastMessage.content;
-		const smallDiff = message.createdTimestamp - lastMessage.createdTimestamp < 500;
+		const smallDiff = message.createdTimestamp - lastMessage.createdTimestamp < 2000;
 		const canMute = message.member.manageable;
 
 		if (sameContent && smallDiff) {
@@ -99,6 +99,49 @@ client.on("message", message => {
 	}
 
 	lastMessages.set(message.author.id, message);
+});
+
+function _clean(text, client) {
+	const tokenRegex = new RegExp(client.token);
+	const cookedTextRegex = /([`@])/g;
+
+	return `${text}`
+		.replace(tokenRegex, "[REMOVED]")
+		.replace(cookedTextRegex, `$1${String.fromCharCode(8203)}`);
+}
+
+function _format(input, type, output ) {
+	return `**INPUT**\n\`\`\`js\n${input}\n\`\`\`\n**${type}**\n\`\`\`js\n${output}\n\`\`\``;
+}
+
+client.command("eval", async (message, args) => {
+	const client = message.client;
+
+	let output;
+	let outputType = "OUTPUT";
+
+	try {
+		output = await eval(code);
+	} catch (err) {
+		output = err;
+	}
+
+	const cleanInput = _clean(code, client);
+
+	if (output instanceof Error) {
+		output = output.toString();
+		outputType = "ERROR";
+	} else if (typeof output !== "string") {
+		output = inspect(output, { depth: 0 });
+	}
+
+	const cleanOutput = _clean(output, client);
+	const formattedOutput = _format(cleanInput, outputType, cleanOutput);
+
+	await message.channel.send(formattedOutput);
+}
+
+
 });
 
 client.login(config.discord.token);
