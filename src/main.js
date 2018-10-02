@@ -63,7 +63,7 @@ client.on("guildMemberAdd", member => {
 	const hasRole = member.roles.has(role.id);
 	const isManageable = member.manageable;
 
-	if (hasRole && isManageable) {
+	if (!hasRole && isManageable) {
 		member.roles.add(role);
 	}
 });
