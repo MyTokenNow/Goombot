@@ -17,12 +17,14 @@ class SmorcClient extends Client {
 				let content;
 
 				if (hasPrefix) {
-					content = m.content.replace(this.prefix);
+					content = m.content.replace(this.prefix, "");
 				} else {
-					content = m.content.replace(this.user.toString());
+					content = m.content.replace(this.user.toString(), "");
 				}
 
 				const [command, ...args] = content.trim().split(/\s+/);
+
+				console.log(command)
 
 				if (this.commands.has(command)) {
 					this.commands.get(command).call(this, m, args);
