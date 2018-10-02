@@ -66,6 +66,12 @@ client.on("guildMemberAdd", member => {
 	if (!hasRole && isManageable) {
 		member.roles.add(role);
 	}
+
+	const emoji = message.guild.emojis.find(e => e.name === "SMOrc");
+				
+	if (emoji) {
+		message.channel.send(emoji.toString());
+	}
 });
 
 client.on("message", message => {
