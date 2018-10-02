@@ -142,9 +142,6 @@ client.command("eval", async (message, args) => {
 	const formattedOutput = _format(cleanInput, outputType, cleanOutput);
 
 	await message.channel.send(formattedOutput);
-}
-
-
 });
 
 client.login(config.discord.token);
