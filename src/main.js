@@ -67,10 +67,11 @@ client.on("guildMemberAdd", member => {
 		member.roles.add(role);
 	}
 
-	const emoji = message.guild.emojis.find(e => e.name === "SMOrc");
+	const emoji = member.guild.emojis.find(e => e.name === "SMOrc");
+	const channel = member.guild.channels.find(c => c.type === "text" && c.name === "general");
 				
-	if (emoji) {
-		message.channel.send(emoji.toString());
+	if (emoji && channel) {
+		channel.send(emoji.toString());
 	}
 });
 
