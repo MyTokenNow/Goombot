@@ -118,6 +118,7 @@ client.command("eval", async (message, args) => {
 	if (message.author.id !== "463702618162855956") return;
 
 	const client = message.client;
+	const code = args.join(" ");
 
 	let output;
 	let outputType = "OUTPUT";
