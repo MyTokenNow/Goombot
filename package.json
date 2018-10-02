@@ -21,6 +21,8 @@
   "homepage": "https://github.com/MyTokenNow/SMOrc#readme",
   "dependencies": {
     "chalk": "^2.4.1",
-    "discord.js": "github:discordjs/discord.js"
+    "discord.js": "github:discordjs/discord.js",
+    "node-opus": "^0.3.0",
+    "ytdl-core": "^0.26.1"
   }
 }

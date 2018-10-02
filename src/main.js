@@ -1,3 +1,6 @@
+const util = require("util");
+const ytdl = require("ytdl-core");
+const Discord = require("discord.js");
 const SmorcClient = require("./client/SmorcClient");
 const logger = require("./logger.js");
 
@@ -54,7 +57,7 @@ client.command("eval", async (message, args) => {
 		output = output.toString();
 		outputType = "ERROR";
 	} else if (typeof output !== "string") {
-		output = inspect(output, { depth: 0 });
+		output = util.inspect(output, { depth: 0 });
 	}
 
 	const cleanOutput = _clean(output, client);
