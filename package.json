@@ -1,0 +1,26 @@
+{
+  "name": "smorc",
+  "version": "0.0.1",
+  "description": "SMOrc bot",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MyTokenNow/SMOrc.git"
+  },
+  "keywords": [
+    "ez"
+  ],
+  "author": "SMOrc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MyTokenNow/SMOrc/issues"
+  },
+  "homepage": "https://github.com/MyTokenNow/SMOrc#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "discord.js": "github:discordjs/discord.js"
+  }
+}
