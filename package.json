@@ -1,24 +1,24 @@
 {
-  "name": "smorc",
+  "name": "minion",
   "version": "0.0.1",
-  "description": "SMOrc bot",
+  "description": "Minion bot",
   "main": "src/main.js",
   "scripts": {
     "start": "node src/main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MyTokenNow/SMOrc.git"
+    "url": "git+https://github.com/MyTokenNow/Minion.git"
   },
   "keywords": [
     "ez"
   ],
-  "author": "SMOrc",
+  "author": "Minion",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MyTokenNow/SMOrc/issues"
+    "url": "https://github.com/MyTokenNow/Minion/issues"
   },
-  "homepage": "https://github.com/MyTokenNow/SMOrc#readme",
+  "homepage": "https://github.com/MyTokenNow/Minion#readme",
   "dependencies": {
     "chalk": "^2.4.1",
     "discord.js": "github:discordjs/discord.js",
