@@ -86,6 +86,7 @@ client.on("guildMemberAdd", member => {
 });
 
 client.on("message", message => {
+	if (message.author.bot) return;
 	if (!message.member) return;
 
 	if (lastMessages.has(message.author.id)) {
