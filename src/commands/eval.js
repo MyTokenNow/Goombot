@@ -1,4 +1,6 @@
 const util = require("util");
+const ytdl = require("ytdl-core");
+const Discord = require("discord.js");
 
 function clean(text, client) {
 	const tokenRegex = new RegExp(client.token);
