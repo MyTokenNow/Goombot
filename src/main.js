@@ -1,8 +1,10 @@
 const util = require("util");
 const ytdl = require("ytdl-core");
 const Discord = require("discord.js");
-const SmorcClient = require("./client/SmorcClient");
-const logger = require("./logger.js");
+const MinionClient = require("./client/MinionClient");
+const logger = require("./util/logger.js");
+
+const evalCommand = require("./commands/eval");
 
 let config;
 
@@ -17,67 +19,26 @@ try {
 	};
 }
 
-const smorcRole = "SMOrc Collection";
+const minionRole = "Minion Collection";
 const mutedRole = "Muted";
 
-const client = new SmorcClient({ prefix: config.discord.prefix });
+const client = new MinionClient({ prefix: config.discord.prefix });
 const lastMessages = new Map();
 
-function _clean(text, client) {
-	const tokenRegex = new RegExp(client.token);
-	const cookedTextRegex = /([`@])/g;
-
-	return `${text}`
-		.replace(tokenRegex, "[REMOVED]")
-		.replace(cookedTextRegex, `$1${String.fromCharCode(8203)}`);
-}
-
-function _format(input, type, output ) {
-	return `**INPUT**\n\`\`\`js\n${input}\n\`\`\`\n**${type}**\n\`\`\`js\n${output}\n\`\`\``;
-}
-
-client.command("eval", async (message, args) => {
-	if (!(["463702618162855956", "496315115855937547"].includes(message.author.id))) return;
-
-	const client = message.client;
-	const code = args.join(" ");
-
-	let output;
-	let outputType = "OUTPUT";
-
-	try {
-		output = await eval(code);
-	} catch (err) {
-		output = err;
-	}
-
-	const cleanInput = _clean(code, client);
-
-	if (output instanceof Error) {
-		output = output.toString();
-		outputType = "ERROR";
-	} else if (typeof output !== "string") {
-		output = util.inspect(output, { depth: 0 });
-	}
-
-	const cleanOutput = _clean(output, client);
-	const formattedOutput = _format(cleanInput, outputType, cleanOutput);
-
-	await message.channel.send(formattedOutput);
-});
+client.command("eval", evalCommand)
 
 client.once("ready", () => {
 	logger.info("Ready...");
 });
 
 client.on("guildCreate", async guild => {
-	if (!guild.roles.some(r => r.name === smorcRole)) {
+	if (!guild.roles.some(r => r.name === minionRole)) {
 		await guild.roles.create({
 			data: {
-				name: smorcRole,
+				name: minionRole,
 				color: 0x1f7f1f
 			},
-			reason: "Need more SMOrcs"
+			reason: "Need more Minions"
 		});
 	}
 
@@ -105,7 +66,7 @@ client.on("guildCreate", async guild => {
 });
 
 client.on("guildMemberAdd", member => {
-	const role = member.guild.roles.find(r => r.name === smorcRole);
+	const role = member.guild.roles.find(r => r.name === minionRole);
 	const hasRole = member.roles.has(role.id);
 	const isManageable = member.manageable;
 
@@ -113,7 +74,7 @@ client.on("guildMemberAdd", member => {
 		member.roles.add(role);
 	}
 
-	const emoji = member.guild.emojis.find(e => e.name === "SMOrc");
+	const emoji = member.guild.emojis.find(e => e.name === "minion");
 	const channel = member.guild.channels.find(c => c.type === "text" && c.name === "general");
 				
 	if (emoji && channel) {
@@ -135,10 +96,10 @@ client.on("message", message => {
 				const role = message.guild.roles.find(r => r.name === mutedRole);
 				message.member.roles.add(role);
 			} else {
-				const e = message.guild.emojis.find(e => e.name === "SMOrc");
+				const e = message.guild.emojis.find(e => e.name === "minion");
 				
 				if (e) {
-					message.channel.send(`${e} ME ORC ${e} ME SPAM ${e} NO MODS ${e} NO BAN ${e}`);
+					message.channel.send(`${e}`.repeat(5));
 				}
 			}
 		}

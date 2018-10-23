@@ -1,9 +1,10 @@
 const { Client } = require("discord.js");
 
-class SmorcClient extends Client {
+class MinionClient extends Client {
 	constructor(options) {
 		super(options);
 
+		this.owners = options.owners;
 		this.prefix = options.prefix;
 		this.commands = new Map();
 
@@ -24,8 +25,6 @@ class SmorcClient extends Client {
 
 				const [command, ...args] = content.trim().split(/\s+/);
 
-				console.log(command)
-
 				if (this.commands.has(command)) {
 					this.commands.get(command).call(this, m, args);
 				}
@@ -42,4 +41,4 @@ class SmorcClient extends Client {
 	}
 }
 
-module.exports = SmorcClient;
+module.exports = MinionClient;
