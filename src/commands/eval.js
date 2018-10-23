@@ -1,3 +1,5 @@
+const util = require("util");
+
 function clean(text, client) {
 	const tokenRegex = new RegExp(client.token);
 	const cookedTextRegex = /([`@])/g;
@@ -12,7 +14,7 @@ function format(input, type, output ) {
 }
 
 async function evalCommand(message, args) {
-	if (!(["463702618162855956", "496315115855937547"].includes(message.author.id))) return;
+	if (!message.client.owners.includes(message.author.id)) return;
 
 	const client = message.client;
 	const code = args.join(" ");

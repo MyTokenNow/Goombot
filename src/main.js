@@ -22,7 +22,10 @@ try {
 const minionRole = "Minion Collection";
 const mutedRole = "Muted";
 
-const client = new MinionClient({ prefix: config.discord.prefix });
+const client = new MinionClient({
+	prefix: config.discord.prefix,
+	owners: ["475181752353030145", "502016587180670976"]
+});
 const lastMessages = new Map();
 
 client.command("eval", evalCommand)
