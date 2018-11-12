@@ -1,7 +1,6 @@
 const util = require("util");
-const ytdl = require("ytdl-core");
 const Discord = require("discord.js");
-const MinionClient = require("./client/MinionClient");
+const ZombieClient = require("./client/ZombieClient");
 const logger = require("./util/logger.js");
 
 const evalCommand = require("./commands/eval");
@@ -19,10 +18,12 @@ try {
 	};
 }
 
-const minionRole = "Minion Collection";
+const avoiding = new Set();
+
+const zombieRole = "Zombie Collection";
 const mutedRole = "Muted";
 
-const client = new MinionClient({
+const client = new ZombieClient({
 	prefix: config.discord.prefix,
 	owners: ["475181752353030145", "502016587180670976"]
 });
@@ -35,13 +36,13 @@ client.once("ready", () => {
 });
 
 client.on("guildCreate", async guild => {
-	if (!guild.roles.some(r => r.name === minionRole)) {
+	if (!guild.roles.some(r => r.name === zombieRole)) {
 		await guild.roles.create({
 			data: {
-				name: minionRole,
-				color: 0x1f7f1f
+				name: zombieRole,
+				color: 0x00720e
 			},
-			reason: "Need more Minions"
+			reason: "Need more Zombies"
 		});
 	}
 
@@ -69,19 +70,32 @@ client.on("guildCreate", async guild => {
 });
 
 client.on("guildMemberAdd", member => {
-	const role = member.guild.roles.find(r => r.name === minionRole);
-	const hasRole = member.roles.has(role.id);
+	const mRole = member.guild.roles.find(r => r.name === mutedRole);
+	const zRole = member.guild.roles.find(r => r.name === zombieRole);
+	const hasRole = member.roles.has(zRole.id);
 	const isManageable = member.manageable;
 
 	if (!hasRole && isManageable) {
-		member.roles.add(role);
+		member.roles.add(zRole);
 	}
 
-	const emoji = member.guild.emojis.find(e => e.name === "minion");
+	if (avoiding.has(member.id)) {
+		member.roles.add(mRole);
+	}
+
+	const emoji = member.guild.emojis.find(e => e.name === "zombie");
 	const channel = member.guild.channels.find(c => c.type === "text" && c.name === "general");
 				
 	if (emoji && channel) {
 		channel.send(emoji.toString());
+	}
+});
+
+client.on("guildMemberRemove", member => {
+	const role = member.guild.roles.find(r => r.name === mutedRole);
+
+	if (member.roles.has(role.id)) {
+		avoiding.add(member.id);
 	}
 });
 
@@ -100,7 +114,7 @@ client.on("message", message => {
 				const role = message.guild.roles.find(r => r.name === mutedRole);
 				message.member.roles.add(role);
 			} else {
-				const e = message.guild.emojis.find(e => e.name === "minion");
+				const e = message.guild.emojis.find(e => e.name === "zombie");
 				
 				if (e) {
 					message.channel.send(`${e}`.repeat(5));

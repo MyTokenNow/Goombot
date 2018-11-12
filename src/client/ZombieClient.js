@@ -1,6 +1,6 @@
 const { Client } = require("discord.js");
 
-class MinionClient extends Client {
+class ZombieClient extends Client {
 	constructor(options) {
 		super(options);
 
@@ -41,4 +41,4 @@ class MinionClient extends Client {
 	}
 }
 
-module.exports = MinionClient;
+module.exports = ZombieClient;
