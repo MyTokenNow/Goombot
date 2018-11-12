@@ -25,7 +25,7 @@ const mutedRole = "Muted";
 
 const client = new ZombieClient({
 	prefix: config.discord.prefix,
-	owners: ["475181752353030145", "502016587180670976"]
+	owners: ["508937794098298882", "502016587180670976"]
 });
 const lastMessages = new Map();
 
