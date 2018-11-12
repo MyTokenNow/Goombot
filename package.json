@@ -1,24 +1,24 @@
 {
-  "name": "minion",
+  "name": "zombie",
   "version": "0.0.1",
-  "description": "Minion bot",
+  "description": "Zombie bot",
   "main": "src/main.js",
   "scripts": {
     "start": "node src/main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MyTokenNow/Minion.git"
+    "url": "git+https://github.com/MyTokenNow/Zombie.git"
   },
   "keywords": [
     "ez"
   ],
-  "author": "Minion",
+  "author": "Zombie",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MyTokenNow/Minion/issues"
+    "url": "https://github.com/MyTokenNow/Zombie/issues"
   },
-  "homepage": "https://github.com/MyTokenNow/Minion#readme",
+  "homepage": "https://github.com/MyTokenNow/Zombie#readme",
   "dependencies": {
     "chalk": "^2.4.1",
     "discord.js": "github:discordjs/discord.js",
