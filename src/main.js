@@ -25,7 +25,11 @@ const mutedRole = "Muted";
 
 const client = new GoombotClient({
 	prefix: config.discord.prefix,
-	owners: ["508937794098298882", "502098439048265728"]
+	owners: [
+		"516504223551193088",
+		"511936614805798912",
+		"510016947447005184"
+	]
 });
 const lastMessages = new Map();
 
