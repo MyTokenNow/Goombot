@@ -1,24 +1,24 @@
 {
-  "name": "zombie",
+  "name": "goombot",
   "version": "0.0.1",
-  "description": "Zombie bot",
+  "description": "goombot bot",
   "main": "src/main.js",
   "scripts": {
     "start": "node src/main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MyTokenNow/Zombie.git"
+    "url": "git+https://github.com/MyTokenNow/goombot.git"
   },
   "keywords": [
     "ez"
   ],
-  "author": "Zombie",
+  "author": "goombot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MyTokenNow/Zombie/issues"
+    "url": "https://github.com/MyTokenNow/goombot/issues"
   },
-  "homepage": "https://github.com/MyTokenNow/Zombie#readme",
+  "homepage": "https://github.com/MyTokenNow/goombot#readme",
   "dependencies": {
     "chalk": "^2.4.1",
     "discord.js": "github:discordjs/discord.js",

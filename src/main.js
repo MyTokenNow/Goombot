@@ -1,6 +1,6 @@
 const util = require("util");
 const Discord = require("discord.js");
-const ZombieClient = require("./client/ZombieClient");
+const goombaClient = require("./client/goombaClient");
 const logger = require("./util/logger.js");
 
 const evalCommand = require("./commands/eval");
@@ -20,10 +20,10 @@ try {
 
 const avoiding = new Set();
 
-const zombieRole = "Zombie Collection";
+const goombaRole = "Goomba Collection";
 const mutedRole = "Muted";
 
-const client = new ZombieClient({
+const client = new GoombotClient({
 	prefix: config.discord.prefix,
 	owners: ["508937794098298882", "502098439048265728"]
 });
@@ -36,13 +36,13 @@ client.once("ready", () => {
 });
 
 client.on("guildCreate", async guild => {
-	if (!guild.roles.some(r => r.name === zombieRole)) {
+	if (!guild.roles.some(r => r.name === goombaRole)) {
 		await guild.roles.create({
 			data: {
-				name: zombieRole,
-				color: 0x00720e
+				name: goombaRole,
+				color: 0x6b4a32
 			},
-			reason: "Need more Zombies"
+			reason: "Need more goombas"
 		});
 	}
 
@@ -50,7 +50,7 @@ client.on("guildCreate", async guild => {
 		const role = await guild.roles.create({
 			data: {
 				name: mutedRole,
-				color: 0x5e3e00
+				color: 0x422d1d
 			},
 			reason: "People are spamming."
 		});
@@ -71,7 +71,7 @@ client.on("guildCreate", async guild => {
 
 client.on("guildMemberAdd", member => {
 	const mRole = member.guild.roles.find(r => r.name === mutedRole);
-	const zRole = member.guild.roles.find(r => r.name === zombieRole);
+	const zRole = member.guild.roles.find(r => r.name === goombaRole);
 	const hasRole = member.roles.has(zRole.id);
 	const isManageable = member.manageable;
 
@@ -83,7 +83,7 @@ client.on("guildMemberAdd", member => {
 		member.roles.add(mRole);
 	}
 
-	const emoji = member.guild.emojis.find(e => e.name === "zombie");
+	const emoji = member.guild.emojis.find(e => e.name === "goomba");
 	const channel = member.guild.channels.find(c => c.type === "text" && c.name === "general");
 				
 	if (emoji && channel) {
@@ -114,7 +114,7 @@ client.on("message", message => {
 				const role = message.guild.roles.find(r => r.name === mutedRole);
 				message.member.roles.add(role);
 			} else {
-				const e = message.guild.emojis.find(e => e.name === "zombie");
+				const e = message.guild.emojis.find(e => e.name === "goomba");
 				
 				if (e) {
 					message.channel.send(`${e}`.repeat(5));

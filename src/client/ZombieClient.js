@@ -1,6 +1,6 @@
 const { Client } = require("discord.js");
 
-class ZombieClient extends Client {
+class GoombotClient extends Client {
 	constructor(options) {
 		super(options);
 
