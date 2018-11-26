@@ -1,6 +1,6 @@
 const util = require("util");
 const Discord = require("discord.js");
-const goombaClient = require("./client/goombaClient");
+const GoombotClient = require("./client/GoombotClient.js");
 const logger = require("./util/logger.js");
 
 const evalCommand = require("./commands/eval");

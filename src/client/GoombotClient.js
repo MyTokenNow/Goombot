@@ -41,4 +41,4 @@ class GoombotClient extends Client {
 	}
 }
 
-module.exports = ZombieClient;
+module.exports = GoombotClient;
